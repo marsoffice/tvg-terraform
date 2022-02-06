@@ -1,0 +1,184 @@
+name: tvg-terraform
+
+on:
+  push:
+    branches: [develop, master]
+  pull_request:
+    branches: [develop]
+  workflow_dispatch:
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  sendgridapikey: ${{ secrets.SENDGRID_API_KEY }}
+  TF_REGISTRY_CLIENT_TIMEOUT: "20"
+  publicvapidkey: ${{ secrets.publicvapidkey }}
+  privatevapidkey: ${{ secrets.privatevapidkey }}
+
+defaults:
+  run:
+    shell: bash
+
+concurrency: terraform-${{ github.ref }}
+
+jobs:
+  plan_ci:
+    runs-on: ubuntu-latest
+    environment: stg
+    if: ${{ success() && (github.event_name == 'pull_request' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop')) }}
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+
+      - name: terraform init
+        run: terraform init
+        working-directory: stg
+
+      - name: terraform validate
+        run: terraform validate
+        working-directory: stg
+
+      - name: replace secrets
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["./secrets.tfvars.json"]'
+
+      - name: terraform plan
+        run: terraform plan -var-file ../secrets.tfvars.json -out ../tfplan
+        working-directory: stg
+
+  plan_stg:
+    runs-on: ubuntu-latest
+    environment: stg
+    if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/develop' }}
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+
+      - name: terraform init
+        run: terraform init
+        working-directory: stg
+
+      - name: terraform validate
+        run: terraform validate
+        working-directory: stg
+
+      - name: replace secrets
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["./secrets.tfvars.json"]'
+
+      - name: terraform plan
+        run: terraform plan -var-file ../secrets.tfvars.json -out ../tfplan
+        working-directory: stg
+
+      - name: upload tfplan
+        uses: actions/upload-artifact@v2.2.4
+        if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/develop' }}
+        with:
+          name: tfplan
+          path: ./tfplan
+
+  plan_prod:
+    runs-on: ubuntu-latest
+    if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+    environment: prod
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+
+      - name: terraform init
+        run: terraform init
+        working-directory: prod
+
+      - name: terraform validate
+        run: terraform validate
+        working-directory: prod
+
+      - name: replace secrets
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["./secrets.tfvars.json"]'
+
+      - name: terraform plan
+        run: terraform plan -var-file ../secrets.tfvars.json -out ../tfplan
+        working-directory: prod
+
+      - name: upload tfplan
+        uses: actions/upload-artifact@v2.2.4
+        if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+        with:
+          name: tfplan
+          path: ./tfplan
+
+  apply_stg:
+    runs-on: ubuntu-latest
+    needs: [plan_stg]
+    if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/develop' }}
+    environment: stg
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: download tfplan
+        uses: actions/download-artifact@v2.0.10
+        with:
+          name: tfplan
+          path: ./stg
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+
+      - name: terraform init
+        run: terraform init
+        working-directory: stg
+
+      - name: terraform apply
+        run: terraform apply -auto-approve ./tfplan
+        working-directory: stg
+
+  apply_prod:
+    runs-on: ubuntu-latest
+    needs: [plan_prod]
+    if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+    environment: prod
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: download tfplan
+        uses: actions/download-artifact@v2.0.10
+        with:
+          name: tfplan
+          path: ./prod
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+
+      - name: terraform init
+        run: terraform init
+        working-directory: prod
+
+      - name: terraform apply
+        run: terraform apply -auto-approve ./tfplan
+        working-directory: prod
