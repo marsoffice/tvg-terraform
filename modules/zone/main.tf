@@ -329,6 +329,7 @@ module "swa" {
     notifications_url = "https://${module.func_notifications.hostname}",
     speech_url = "https://${module.func_speech.hostname}",
     jobs_url = "https://${module.func_jobs.hostname}",
-    videos_url = "https://${module.func_videos.hostname}"
+    videos_url = "https://${module.func_videos.hostname}",
+    content_url = "https://${module.func_content.hostname}"
   })
 }
