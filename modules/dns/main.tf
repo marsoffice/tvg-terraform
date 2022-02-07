@@ -26,11 +26,3 @@ resource "azurerm_dns_cname_record" "landing_cname" {
   ttl                 = 300
   record              = var.cname_landing_value
 }
-
-resource "azurerm_dns_a_record" "landing_a" {
-  name                = "@"
-  zone_name           = azurerm_dns_zone.dns_zone.name
-  resource_group_name = var.resource_group
-  ttl                 = 300
-  target_resource_id = var.swa_landing_id
-}
