@@ -81,6 +81,7 @@ module "dns" {
   cname_landing_value = module.zone_westeurope.swa_landing_hostname
   cname          = "app"
   cname_landing = "landing"
+  swa_landing_id = module.zone_westeurope.swa_landing_id
 }
 
 

@@ -21,3 +21,7 @@ variable "cname_value" {
 variable "cname_landing_value" {
     type = string
 }
+
+variable "swa_landing_id" {
+    type = string
+}
