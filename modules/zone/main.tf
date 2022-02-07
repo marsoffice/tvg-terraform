@@ -359,3 +359,14 @@ module "swa" {
     translate_url = "https://${module.func_translate.hostname}"
   })
 }
+
+module "swa_landing" {
+  source         = "../swa"
+  location       = var.location
+  resource_group = var.resource_group
+  name           = "swa-${var.app_name}-landing-${replace(lower(var.location), " ", "")}-${var.env}"
+  sku_size       = var.swa_sku_size
+  sku_tier       = var.swa_sku_tier
+
+  properties = null
+}
