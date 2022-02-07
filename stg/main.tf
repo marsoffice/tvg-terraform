@@ -72,35 +72,3 @@ module "zone_westeurope" {
   appi_retention                  = 30
   appi_sku                        = "PerGB2018"
 }
-
-module "dns" {
-  source         = "../modules/dns"
-  name           = var.domain_name
-  resource_group = module.rg.name
-  cname_value    = module.zone_westeurope.swa_hostname
-  cname_landing_value = module.zone_westeurope.swa_landing_hostname
-  cname          = "app"
-  cname_landing = "landing"
-  swa_landing_id = module.zone_westeurope.swa_landing_id
-}
-
-
-module "swa_custom_domain" {
-  source         = "../modules/swa-custom-domain"
-  resource_group = module.rg.name
-  swa_name       = module.zone_westeurope.swa_name
-  domain         = var.app_hostname
-  depends_on = [
-    module.dns
-  ]
-}
-
-module "swa_custom_domain_landing" {
-  source         = "../modules/swa-custom-domain"
-  resource_group = module.rg.name
-  swa_name       = module.zone_westeurope.swa_landing_name
-  domain         = var.landing_hostname
-  depends_on = [
-    module.dns
-  ]
-}
