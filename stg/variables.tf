@@ -19,6 +19,11 @@ variable "app_hostname" {
   default = "app.stg.zikmash.com"
 }
 
+variable "landing_hostname" {
+  type    = string
+  default = "landing.stg.zikmash.com"
+}
+
 variable "publicvapidkey" {
   type      = string
   sensitive = true

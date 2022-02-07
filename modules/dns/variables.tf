@@ -10,6 +10,14 @@ variable "cname" {
     type = string
 }
 
+variable "cname_landing" {
+    type = string
+}
+
 variable "cname_value" {
+    type = string
+}
+
+variable "cname_landing_value" {
     type = string
 }
