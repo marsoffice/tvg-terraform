@@ -10,13 +10,13 @@ variable "app_name" {
 
 variable "domain_name" {
   type    = string
-  default = "stg.tvg.qoffice.ro"
+  default = "stg.zikmash.com"
 }
 
 
 variable "app_hostname" {
   type    = string
-  default = "app.stg.tvg.qoffice.ro"
+  default = "app.stg.zikmash.com"
 }
 
 variable "publicvapidkey" {
