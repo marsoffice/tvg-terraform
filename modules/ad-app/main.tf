@@ -34,8 +34,6 @@ resource "azuread_application" "application" {
     redirect_uris = var.include_localhost_redirect == true ? ["https://localhost:4200/", "https://${var.redirect_url}/"] : ["https://${var.redirect_url}/"]
   }
 
-  group_membership_claims = ["SecurityGroup"]
-
   prevent_duplicate_names = true
 
   lifecycle {
@@ -45,24 +43,10 @@ resource "azuread_application" "application" {
       required_resource_access
     ]
   }
-  optional_claims {
-    access_token {
-      name                  = "groups"
-      source                = null
-      essential             = false
-      additional_properties = []
-    }
-    id_token {
-      name                  = "groups"
-      source                = null
-      essential             = false
-      additional_properties = []
-    }
-  }
  
   app_role {
     allowed_member_types = ["User"]
-    description          = "Regular qeeps role"
+    description          = "Regular TVG role"
     display_name         = "Regular"
     enabled              = true
     value                = "Regular"
@@ -71,7 +55,7 @@ resource "azuread_application" "application" {
 
   app_role {
     allowed_member_types = ["User", "Application"]
-    description          = "Application qeeps role"
+    description          = "Application TVG role"
     display_name         = "Application"
     enabled              = true
     value                = "Application"
