@@ -356,7 +356,10 @@ module "swa" {
     videos_url = "https://${module.func_videos.hostname}",
     content_url = "https://${module.func_content.hostname}",
     editor_url = "https://${module.func_editor.hostname}",
-    translate_url = "https://${module.func_translate.hostname}"
+    translate_url = "https://${module.func_translate.hostname}",
+    tiktok_url = "https://${module.func_tiktok.hostname}",
+    videodownloader_url = "https://${module.func_videodownloader.hostname}",
+    audiodownloader_url = "https://${module.func_audiodownloader.hostname}"
   })
 }
 
