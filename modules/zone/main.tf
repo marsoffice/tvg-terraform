@@ -51,7 +51,7 @@ module "speech" {
   resource_group = var.resource_group
   name = "ai-${var.app_name}-tts-${replace(lower(var.location), " ", "")}-${var.env}"
   sku = var.ai_sku
-  kind = "Speech"
+  kind = "SpeechServices"
 }
 
 module "kvl" {
