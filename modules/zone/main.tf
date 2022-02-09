@@ -36,6 +36,15 @@ module "signalr" {
   allowed_host    = "https://${var.domain_name}"
 }
 
+module "translate" {
+  source = "../ai"
+  location = var.location
+  resource_group = var.resource_group
+  name = "ai-${var.app_name}-translate-${replace(lower(var.location), " ", "")}-${var.env}"
+  sku = var.ai_sku
+  kind = "TextTranslation"
+}
+
 module "kvl" {
   source         = "../kvl"
   location       = var.location
@@ -43,7 +52,9 @@ module "kvl" {
   name           = "kvl-${var.app_name}-${replace(lower(var.location), " ", "")}-${var.env}"
   secrets = merge(var.secrets, tomap({
     signalrconnectionstring      = module.signalr.connection_string,
-    localsaconnectionstring      = module.sa.connection_string
+    localsaconnectionstring      = module.sa.connection_string,
+    aiendpoint = module.translate.endpoint,
+    aikey = module.translate.key
   }))
 }
 
@@ -62,7 +73,9 @@ locals {
       location                     = var.location,
       localsaconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/localsaconnectionstring/)",
       scope                        = "${var.ad_audience}/.default",
-      signalrconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/signalrconnectionstring/)"
+      signalrconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/signalrconnectionstring/)",
+      aiendpoint      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/aiendpoint/)",
+      aikey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/aikey/)"
     })
   )
 

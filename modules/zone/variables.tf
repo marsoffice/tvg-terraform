@@ -69,3 +69,6 @@ variable "swa_sku_tier" {
 variable "swa_sku_size" {
   type = string
 }
+variable "ai_sku" {
+  type = string
+}
