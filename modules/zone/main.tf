@@ -45,6 +45,15 @@ module "translate" {
   kind = "TextTranslation"
 }
 
+module "speech" {
+  source = "../ai"
+  location = var.location
+  resource_group = var.resource_group
+  name = "ai-${var.app_name}-tts-${replace(lower(var.location), " ", "")}-${var.env}"
+  sku = var.ai_sku
+  kind = "Speech"
+}
+
 module "kvl" {
   source         = "../kvl"
   location       = var.location
@@ -54,7 +63,9 @@ module "kvl" {
     signalrconnectionstring      = module.signalr.connection_string,
     localsaconnectionstring      = module.sa.connection_string,
     aiendpoint = module.translate.endpoint,
-    aikey = module.translate.key
+    aikey = module.translate.key,
+    speechendpoint = module.speech.endpoint,
+    speechkey = module.speech.key
   }))
 }
 
@@ -75,7 +86,9 @@ locals {
       scope                        = "${var.ad_audience}/.default",
       signalrconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/signalrconnectionstring/)",
       aiendpoint      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/aiendpoint/)",
-      aikey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/aikey/)"
+      aikey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/aikey/)",
+      speechendpoint      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechendpoint/)",
+      speechkey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechkey/)"
     })
   )
 
