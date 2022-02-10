@@ -38,3 +38,8 @@ variable "sendgridapikey" {
   type      = string
   sensitive = true
 }
+
+variable "pixabayapikey" {
+  type      = string
+  sensitive = true
+}

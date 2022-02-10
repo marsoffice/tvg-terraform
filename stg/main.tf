@@ -46,7 +46,8 @@ locals {
     adapplicationsecret = module.ad_app.application_secret,
     publicvapidkey      = var.publicvapidkey
     privatevapidkey     = var.privatevapidkey,
-    sendgridapikey      = var.sendgridapikey
+    sendgridapikey      = var.sendgridapikey,
+    pixabayapikey = var.pixabayapikey
   })
 }
 
