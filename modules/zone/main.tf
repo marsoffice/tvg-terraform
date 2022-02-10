@@ -88,7 +88,8 @@ locals {
       aiendpoint      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/aiendpoint/)",
       aikey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/aikey/)",
       speechendpoint      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechendpoint/)",
-      speechkey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechkey/)"
+      speechkey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechkey/)",
+      ffmpegpath = "./libs/ffmpeg_linux"
     })
   )
 
