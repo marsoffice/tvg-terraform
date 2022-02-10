@@ -19,3 +19,15 @@ resource "azurerm_storage_account" "storage_account" {
     versioning_enabled  = true
   }
 }
+
+resource "azurerm_storage_container" "jobsdatacontainer" {
+  name                  = "jobsdata"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "editorcontainer" {
+  name                  = "editor"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+  container_access_type = "private"
+}
