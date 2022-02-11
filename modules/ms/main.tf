@@ -15,4 +15,8 @@ resource "azurerm_media_services_account" "mediaacc" {
     id         = var.storage_account_id
     is_primary = true
   }
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
