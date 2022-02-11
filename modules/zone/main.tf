@@ -6,6 +6,10 @@ terraform {
   }
 }
 
+module "ad_info" {
+  source = "../ad-info"
+}
+
 module "appi" {
   source         = "../appi"
   location       = var.location
@@ -73,7 +77,12 @@ module "kvl" {
     aiendpoint = module.translate.endpoint,
     aikey = module.translate.key,
     speechendpoint = module.speech.endpoint,
-    speechkey = module.speech.key
+    speechkey = module.speech.key,
+    subscriptionid = module.ad_info.subscription_id,
+    tenantid = module.ad_info.tenant_id,
+    tenantdomain = module.ad_info.domain_name,
+    adclientid = var.ad_application_id,
+    adclientsecret = var.ad_application_secret
   }))
 }
 
@@ -98,7 +107,17 @@ locals {
       speechendpoint      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechendpoint/)",
       speechkey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechkey/)",
       ffmpegpath = "./libs/ffmpeg_linux",
-      ffprobepath = "./libs/ffprobe_linux"
+      ffprobepath = "./libs/ffprobe_linux",
+
+      subscriptionid      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/subscriptionid/)",
+      tenantid      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/tenantid/)",
+      tenantdomain      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/tenantdomain/)",
+      mediaservicesaccountname = "${module.ms.name}",
+      mediaservicesresourcegroupname = "${module.ms.resource_group}",
+      armaadaudience = "${var.arm_aad_audience}",
+      armendpoint = "${var.arm_endpoint}",
+      adclientid      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/adclientid/)",
+      adclientsecret      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/adclientsecret/)"
     })
   )
 

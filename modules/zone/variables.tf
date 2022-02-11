@@ -72,3 +72,11 @@ variable "swa_sku_size" {
 variable "ai_sku" {
   type = string
 }
+
+variable "arm_aad_audience" {
+  type = string
+}
+
+variable "arm_endpoint" {
+  type = string
+}

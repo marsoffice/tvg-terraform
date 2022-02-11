@@ -72,4 +72,6 @@ module "zone_westeurope" {
   appi_retention                  = 30
   appi_sku                        = "PerGB2018"
   ai_sku                           = "F0"
+  arm_aad_audience = "https://management.core.windows.net"
+  arm_endpoint = "https://management.azure.com"
 }
