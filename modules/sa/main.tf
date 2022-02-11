@@ -31,3 +31,15 @@ resource "azurerm_storage_container" "editorcontainer" {
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
+
+resource "azurerm_storage_container" "audiocontainer" {
+  name                  = "audio"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "videocontainer" {
+  name                  = "video"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+  container_access_type = "private"
+}
