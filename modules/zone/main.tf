@@ -29,7 +29,7 @@ module "ms" {
   source           = "../ms"
   location         = var.location
   resource_group   = var.resource_group
-  name             = "ms-${var.app_name}-${replace(lower(var.location), " ", "")}-${var.env}"
+  name             = "ms${var.app_name}${replace(lower(var.location), " ", "")}${var.env}"
   storage_account_id = module.sa.id
 }
 
