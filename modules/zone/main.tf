@@ -25,6 +25,14 @@ module "sa" {
   access_tier      = "Hot"
 }
 
+module "ms" {
+  source           = "../ms"
+  location         = var.location
+  resource_group   = var.resource_group
+  name             = "ms-${var.app_name}-${replace(lower(var.location), " ", "")}-${var.env}"
+  storage_account_id = module.sa.id
+}
+
 module "signalr" {
   source          = "../signalr"
   location        = var.location
