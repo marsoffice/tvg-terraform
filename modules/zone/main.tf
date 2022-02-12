@@ -6,9 +6,6 @@ terraform {
   }
 }
 
-module "ad_info" {
-  source = "../ad-info"
-}
 
 module "appi" {
   source         = "../appi"
@@ -27,14 +24,6 @@ module "sa" {
   tier             = "Standard"
   replication_type = "LRS"
   access_tier      = "Hot"
-}
-
-module "ms" {
-  source           = "../ms"
-  location         = var.location
-  resource_group   = var.resource_group
-  name             = "ms${var.app_name}${replace(lower(var.location), " ", "")}${var.env}"
-  storage_account_id = module.sa.id
 }
 
 module "signalr" {
@@ -77,12 +66,7 @@ module "kvl" {
     aiendpoint = module.translate.endpoint,
     aikey = module.translate.key,
     speechendpoint = module.speech.endpoint,
-    speechkey = module.speech.key,
-    subscriptionid = module.ad_info.subscription_id,
-    tenantid = module.ad_info.tenant_id,
-    tenantdomain = module.ad_info.domain_name,
-    adclientid = var.ad_application_id,
-    adclientsecret = var.ad_application_secret
+    speechkey = module.speech.key
   }))
 }
 
@@ -107,17 +91,7 @@ locals {
       speechendpoint      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechendpoint/)",
       speechkey      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/speechkey/)",
       ffmpegpath = "./libs/ffmpeg_linux",
-      ffprobepath = "./libs/ffprobe_linux",
-
-      subscriptionid      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/subscriptionid/)",
-      tenantid      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/tenantid/)",
-      tenantdomain      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/tenantdomain/)",
-      mediaservicesaccountname = "${module.ms.name}",
-      mediaservicesresourcegroupname = "${module.ms.resource_group}",
-      armaadaudience = "${var.arm_aad_audience}",
-      armendpoint = "${var.arm_endpoint}",
-      adclientid      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/adclientid/)",
-      adclientsecret      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/adclientsecret/)"
+      ffprobepath = "./libs/ffprobe_linux"
     })
   )
 
