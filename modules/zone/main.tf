@@ -353,6 +353,7 @@ module "func_videos" {
   app_service_plan_id        = module.appsp.id
   kvl_id                     = module.kvl.id
   app_configs = merge(local.commonsettings, tomap({
+    jobs_url = "https://${module.func_jobs.hostname}"
   }))
   ad_audience                = var.ad_audience
   ad_application_id          = var.ad_application_id
