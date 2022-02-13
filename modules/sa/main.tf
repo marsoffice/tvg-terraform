@@ -20,6 +20,35 @@ resource "azurerm_storage_account" "storage_account" {
   }
 }
 
+resource "azurerm_storage_table" "jobs" {
+  name                 = "Jobs"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+}
+
+resource "azurerm_storage_table" "videos" {
+  name                 = "Videos"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+}
+
+resource "azurerm_storage_table" "tta" {
+  name                 = "TikTokAccounts"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+}
+
+resource "azurerm_storage_table" "usersettings" {
+  name                 = "UserSettings"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+}
+
+resource "azurerm_storage_table" "usedposts" {
+  name                 = "UsedPosts"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+}
+resource "azurerm_storage_table" "pushs" {
+  name                 = "PushSubscriptions"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+}
+
 resource "azurerm_storage_container" "jobsdatacontainer" {
   name                  = "jobsdata"
   storage_account_name  = azurerm_storage_account.storage_account.name
