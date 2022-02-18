@@ -42,7 +42,7 @@ module "translate" {
   location = var.location
   resource_group = var.resource_group
   name = "ai-${var.app_name}-translate-${replace(lower(var.location), " ", "")}-${var.env}"
-  sku = var.translate_sku
+  sku = var.translator_sku
   kind = "TextTranslation"
 }
 
