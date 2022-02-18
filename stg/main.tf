@@ -71,5 +71,6 @@ module "zone_westeurope" {
   swa_sku_tier                    = "Free"
   appi_retention                  = 30
   appi_sku                        = "PerGB2018"
-  ai_sku                           = "F0"
+  translator_sku                           = "F0"
+  speech_sku                           = "F0"
 }

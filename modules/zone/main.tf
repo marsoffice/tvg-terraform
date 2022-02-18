@@ -42,7 +42,7 @@ module "translate" {
   location = var.location
   resource_group = var.resource_group
   name = "ai-${var.app_name}-translate-${replace(lower(var.location), " ", "")}-${var.env}"
-  sku = var.ai_sku
+  sku = var.translate_sku
   kind = "TextTranslation"
 }
 
@@ -51,7 +51,7 @@ module "speech" {
   location = var.location
   resource_group = var.resource_group
   name = "ai-${var.app_name}-tts-${replace(lower(var.location), " ", "")}-${var.env}"
-  sku = var.ai_sku
+  sku = var.speech_sku
   kind = "SpeechServices"
 }
 
