@@ -38,3 +38,13 @@ variable "sendgridapikey" {
   type      = string
   sensitive = true
 }
+
+variable "ttclientkey" {
+  type = string
+  sensitive = true
+}
+
+variable "ttclientsecret" {
+  type = string
+  sensitive = true
+}
