@@ -31,7 +31,7 @@ resource "azuread_application" "application" {
   }
 
   single_page_application {
-    redirect_uris = var.include_localhost_redirect == true ? ["https://localhost:4200/", "https://zikmash.127.0.0.1.nip.io", "https://${var.redirect_url}/"] : ["https://${var.redirect_url}/"]
+    redirect_uris = var.include_localhost_redirect == true ? ["https://zikmash.127.0.0.1.nip.io/", "https://${var.redirect_url}/"] : ["https://${var.redirect_url}/"]
   }
 
   prevent_duplicate_names = true
