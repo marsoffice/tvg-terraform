@@ -48,7 +48,8 @@ locals {
     privatevapidkey     = var.privatevapidkey,
     sendgridapikey      = var.sendgridapikey,
     ttclientkey = var.ttclientkey,
-    ttclientsecret = var.ttclientsecret
+    ttclientsecret = var.ttclientsecret,
+    secretkey = var.secretkey
   })
 }
 
