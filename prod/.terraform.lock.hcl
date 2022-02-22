@@ -5,6 +5,7 @@ provider "registry.terraform.io/hashicorp/azuread" {
   version     = "2.17.0"
   constraints = "2.17.0"
   hashes = [
+    "h1:dGinWMva8i0h0jfu0swLeNIEmTpzpy5aO4PKbEuTreM=",
     "h1:qbL1ZtDoKz3rqqb3a0Ek7Gc505VPp2wTpXvwNl7SO8o=",
     "zh:073246ab0ef51f7299673dfc1d83993d6c7bcf2b464e6f091dc44d91c420ced1",
     "zh:3d970f01c97b1cc3b0887b7cdb333d42d8c8cfc53440d03febdacca08a4e42cc",
@@ -24,6 +25,7 @@ provider "registry.terraform.io/hashicorp/azurerm" {
   version     = "2.95.0"
   constraints = "2.95.0"
   hashes = [
+    "h1:JOWDHfMZWoUIQ4g+Mz4X4gh9I1oGxN/Jb273RnrsRgM=",
     "h1:f8UaL5uARHkCRmEKjKPRMg8/j6IiLAS/bYhbmFb81gQ=",
     "zh:09d2b8894e2c5df4e140d6ddf9224105b48b367afac6e10921c2571d53ae1d9c",
     "zh:2974b8cd6633a8e6cb62f728fafdf1b6c656a27d3e4c050e94c142204c3893e4",
@@ -43,6 +45,7 @@ provider "registry.terraform.io/hashicorp/null" {
   version = "3.1.0"
   hashes = [
     "h1:SFT7X3zY18CLWjoH2GfQyapxsRv6GDKsy9cF1aRwncc=",
+    "h1:vpC6bgUQoJ0znqIKVFevOdq+YQw42bRq0u+H3nto8nA=",
     "zh:02a1675fd8de126a00460942aaae242e65ca3380b5bb192e8773ef3da9073fd2",
     "zh:53e30545ff8926a8e30ad30648991ca8b93b6fa496272cd23b26763c8ee84515",
     "zh:5f9200bf708913621d0f6514179d89700e9aa3097c77dac730e8ba6e5901d521",
@@ -60,6 +63,7 @@ provider "registry.terraform.io/hashicorp/null" {
 provider "registry.terraform.io/hashicorp/random" {
   version = "3.1.0"
   hashes = [
+    "h1:BZMEPucF+pbu9gsPk0G0BHx7YP04+tKdq2MrRDF1EDM=",
     "h1:EPIax4Ftp2SNdB9pUfoSjxoueDoLc/Ck3EUoeX0Dvsg=",
     "zh:2bbb3339f0643b5daa07480ef4397bd23a79963cc364cdfbb4e86354cb7725bc",
     "zh:3cd456047805bf639fbf2c761b1848880ea703a054f76db51852008b11008626",
@@ -78,6 +82,7 @@ provider "registry.terraform.io/hashicorp/random" {
 provider "registry.terraform.io/hashicorp/time" {
   version = "0.7.2"
   hashes = [
+    "h1:YYLAfhMFP5nhV2iZPslqsLkZN+6sZo7gMJW7pLcLfM8=",
     "h1:Z2zNS42oUNtCoXm75OXNgJJ3e0AsxwghpBzTA46scbQ=",
     "zh:0bbe0158c2a9e3f5be911b7e94477586110c51746bb13d102054f22754565bda",
     "zh:3250af7fd49b8aaf2ccc895588af05197d886e38b727e3ba33bcbb8cc96ad34d",
