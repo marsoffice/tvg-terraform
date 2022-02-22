@@ -17,7 +17,7 @@ resource "azurerm_signalr_service" "signalr" {
   }
 
   cors {
-    allowed_origins = var.allow_localhost ? ["https://zikmash.127.0.0.1.nip.io", var.allowed_host] : [var.allowed_host]
+    allowed_origins = var.allow_localhost ? ["https://zikmash.127.0.0.1.nip.io", "https://zikmash.127.0.0.1.nip.io:4200", "https://localhost", "https://localhost:4200", var.allowed_host] : [var.allowed_host]
   }
 
   service_mode = "Serverless"
