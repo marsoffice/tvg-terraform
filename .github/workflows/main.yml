@@ -15,6 +15,9 @@ env:
   TF_REGISTRY_CLIENT_TIMEOUT: "20"
   publicvapidkey: ${{ secrets.publicvapidkey }}
   privatevapidkey: ${{ secrets.privatevapidkey }}
+  ttclientkey: ${{ secrets.ttclientkey }}
+  ttclientsecret: ${{ secrets.ttclientsecret }}
+  secretkey: ${{ secrets.secretkey }}
 
 defaults:
   run:
