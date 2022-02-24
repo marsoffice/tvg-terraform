@@ -67,3 +67,7 @@ variable "internal_role_id" {
 variable "roles" {
     type = list(string)
 }
+variable "runtime" {
+    type = string
+    default = "dotnet"
+}

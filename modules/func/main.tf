@@ -48,7 +48,7 @@ resource "azurerm_function_app" "function_app" {
   app_settings = merge(var.app_configs, tomap({
     AzureWebJobsDisableHomepage       = "true",
     APPINSIGHTS_INSTRUMENTATIONKEY    = "${var.appi_instrumentation_key}",
-    FUNCTIONS_WORKER_RUNTIME          = "dotnet",
+    FUNCTIONS_WORKER_RUNTIME          = var.runtime,
     AZURE_FUNCTIONS_ENVIRONMENT       = var.func_env,
     "WEBSITE_RUN_FROM_PACKAGE"        = "",
     "WEBSITE_ENABLE_SYNC_UPDATE_SITE" = "true"
